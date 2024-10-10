@@ -98,9 +98,20 @@ double cotaSobreestimada(int n, int tipo) {
             return 1.0; //Valor por defecto
     }
 }
-// Verifica si se encuentra ordenado
+
+// Verifica si un arreglo está ordenado
+int esta_ordenado(int v[], int n) {
+    int i;
+    for (i = 0; i < n - 1; i++) {
+        if (v[i] > v[i + 1]) {
+            return 0;
+        }
+    }
+    return 1;
+}
 void imprimir_array(int v[], int n) {
-    for (int i = 0; i < n; i++) {
+    int i;
+    for (i = 0; i < n; i++) {
         printf("%d, ", v[i]);
     }
     printf("\n");
