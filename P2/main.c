@@ -21,6 +21,8 @@ void descendente(int v [], int n);
 void ord_ins(int v[], int n);
 void ord_rap_aux (int v [], int iz, int dr);
 void ord_rap (int v [], int n);
+int esta_ordenado(int v[], int n);
+void imprimir_array(int v[], int n);
 
 
 //Realiza las pruebas de los algoritmos Fibonacci y muestra las tablas de tiempos
@@ -101,14 +103,15 @@ double cotaSobreestimada(int n, int tipo) {
 
 // Verifica si el array esta ordenado
 int esta_ordenado(int v[], int n) {
-    int i;
+    int i; 
     for (i = 0; i < n - 1; i++) {
-        if (v[i] > v[i + 1]) {
+        if (v[i] > v[i + 1]) { 
             return 0;
         }
     }
-    return 1;
+    return 1; 
 }
+
 void imprimir_array(int v[], int n) {
     int i;
     for (i = 0; i < n; i++) {
@@ -117,7 +120,7 @@ void imprimir_array(int v[], int n) {
     printf("\n");
 }
 
-// Función de prueba que realiza las ordenaciones y verifica si los arreglos están ordenados
+// Función de prueba que realiza las ordenaciones 
 void test() {
     inicializar_semilla();
     int n = 17;
