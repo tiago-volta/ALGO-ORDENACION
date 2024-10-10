@@ -98,6 +98,7 @@ double cotaSobreestimada(int n, int tipo) {
             return 1.0; //Valor por defecto
     }
 }
+// Verifica si se encuentra ordenado
 void imprimir_array(int v[], int n) {
     for (int i = 0; i < n; i++) {
         printf("%d, ", v[i]);
@@ -105,6 +106,7 @@ void imprimir_array(int v[], int n) {
     printf("\n");
 }
 
+// Función de prueba que realiza las ordenaciones y verifica si los arreglos están ordenados
 void test() {
     inicializar_semilla();
     int n = 17;
