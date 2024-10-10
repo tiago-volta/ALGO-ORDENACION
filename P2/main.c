@@ -99,7 +99,7 @@ double cotaSobreestimada(int n, int tipo) {
     }
 }
 
-// Verifica si un arreglo está ordenado
+// Verifica si el array esta ordenado
 int esta_ordenado(int v[], int n) {
     int i;
     for (i = 0; i < n - 1; i++) {
