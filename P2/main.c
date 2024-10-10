@@ -98,15 +98,47 @@ double cotaSobreestimada(int n, int tipo) {
             return 1.0; //Valor por defecto
     }
 }
-//Función para probar los tres algoritmos de Fibonacci
-void test() {
-    printf("\n%21s\n\n", "Test Fibonacci");
-    printf("%2s%10s%8s%8s\n", "n", "fib1", "fib2", "fib3");
-    printf("%s%8s%8s%8s\n", "----", "----", "----", "----");
-    for (int i = 1; i <= 20; i++) {
-        printf("%-8d%d%8d%8d\n", i, fib1(i), fib2(i), fib3(i));
+void imprimir_array(int v[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d, ", v[i]);
     }
+    printf("\n");
 }
+
+void test() {
+    inicializar_semilla();
+    int n = 17;
+    int v[n];
+
+    printf("Ordenacion por insercion con inicializacion aleatoria\n");
+    aleatorio(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+    printf("ordenando...\n");
+    ord_ins(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+
+    printf("Ordenacion por insercion con inicializacion descendente\n");
+    descendente(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+    printf("ordenando...\n");
+    ord_ins(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+
+    printf("Ordenacion por insercion con inicializacion ascendente\n");
+    ascendente(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+    printf("ordenando...\n");
+    ord_ins(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+    
+}
+
 
 void inicializar_semilla() {
     srand(time(NULL));
