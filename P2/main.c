@@ -18,12 +18,16 @@ void descendente(int v [], int n);
 void ord_ins(int v[], int n);
 void ord_rap_aux (int v [], int iz, int dr);
 void ord_rap (int v [], int n);
+void test();
+bool estaOrdenado(int v[], int n);
+void imprimirArray(int v[], int n);
 void imprimirTablas();
 
 
 //Realiza las pruebas de los algoritmos Fibonacci y muestra las tablas de tiempos
 int main(void) {
     inicializar_semilla();
+    test();
     imprimirTablas();
     return 0;
 }
@@ -155,6 +159,53 @@ void ord_rap (int v [], int n) {
     ord_rap_aux(v, 0, n-1);
 }
 
+// Función para verificar si un array está ordenado
+bool estaOrdenado(int v[], int n) {
+    for (int i = 1; i < n; i++) {
+        if (v[i - 1] > v[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Función para imprimir un array
+void imprimirArray(int v[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d", v[i]);
+        if (i < n - 1) {
+            printf(", ");
+        }
+    }
+    printf("\n");
+}
+
+// Función de prueba para los algoritmos de ordenación
+void test() {
+    int v[17];  // Vector de tamaño 17 para la primera prueba
+    int v2[10]; // Vector de tamaño 10 para la segunda prueba
+
+    // Ordenación por Inserción con inicialización aleatoria
+    printf("Ordenacion por insercion con inicializacion aleatoria\n");
+    aleatorio(v, 17); // Inicializa aleatoriamente
+    imprimirArray(v, 17); // Imprime el array antes de ordenar
+    printf("ordenado? %d\n", estaOrdenado(v, 17)); // Verifica si está ordenado
+    printf("ordenando...\n");
+    ord_ins(v, 17); // Ordena con el método de inserción
+    imprimirArray(v, 17); // Imprime el array después de ordenar
+    printf("ordenado? %d\n", estaOrdenado(v, 17)); // Verifica si está ordenado
+
+    // Ordenación por Inserción con inicialización descendente
+    printf("\nOrdenacion por insercion con inicializacion descendente\n");
+    descendente(v2, 10); // Inicializa de forma descendente
+    imprimirArray(v2, 10); // Imprime el array antes de ordenar
+    printf("ordenado? %d\n", estaOrdenado(v2, 10)); // Verifica si está ordenado
+    printf("ordenando...\n");
+    ord_ins(v2, 10); // Ordena con el método de inserción
+    imprimirArray(v2, 10); // Imprime el array después de ordenar
+    printf("ordenado? %d\n", estaOrdenado(v2, 10)); // Verifica si está ordenado
+}
+
 // Imprime los tiempos de ejecución y las cotas de complejidad
 void imprimirTiempos(void (*func)(int[], int), const int *valores, const char *tipoOrden, int tipoAlgoritmo) {
     int v[32000];
@@ -163,13 +214,13 @@ void imprimirTiempos(void (*func)(int[], int), const int *valores, const char *t
 
     // Encabezado de la tabla
     printf("\nOrdenación %s con inicialización %s\n", tipoAlgoritmo == 1 ? "por inserción" : "rápida (QuickSort)", tipoOrden);
-    printf("%-8s%15s%15s%15s%15s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2", "t(n)/n^2.2");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2", "t(n)/n^2.2");
 
     for (int i = 0; i < 6; i++) {
         int n = valores[i];
         promedio = false;
 
-        // Inicializa el vector de acuerdo con el tipo de orden
+        //Inicializa el vector de acuerdo con el tipo de orden
         if (strcmp(tipoOrden, "Ascendente") == 0) {
             ascendente(v, n);
         } else if (strcmp(tipoOrden, "Descendente") == 0) {
@@ -186,9 +237,12 @@ void imprimirTiempos(void (*func)(int[], int), const int *valores, const char *t
         z = t / pow(n, 2.2);
 
         // Imprimir fila de la tabla
-        if (promedio)
+        if (promedio) {
             printf("*");
-        printf("%-8d%15.2f%15.6f%15.6f%15.6f\n", n, t, x, y, z);
+        } else {
+            printf(" ");
+        }
+        printf("%12d%17.4f%18.6f%18.6f%20.8f\n", n, t, x, y, z);
     }
 }
 
@@ -196,14 +250,15 @@ void imprimirTiempos(void (*func)(int[], int), const int *valores, const char *t
 void imprimirTablas() {
     int valores[6] = {500, 1000, 2000, 4000, 8000, 16000};
 
-    // Ordenación por Inserción
+    //Ordenación por Inserción
     imprimirTiempos(ord_ins, valores, "Ascendente", 1);
     imprimirTiempos(ord_ins, valores, "Descendente", 1);
     imprimirTiempos(ord_ins, valores, "Aleatorio", 1);
 
-    // Ordenación rápida
+    //Ordenación rápida
     imprimirTiempos(ord_rap, valores, "Ascendente", 2);
     imprimirTiempos(ord_rap, valores, "Descendente", 2);
     imprimirTiempos(ord_rap, valores, "Aleatorio", 2);
 }
+
 
