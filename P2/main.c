@@ -6,84 +6,30 @@
 #include <math.h>
 #include <string.h>
 
-
 //Cabeceras de las funciones
+void test();
 double microsegundos();
-void imprimirTiempos(void (*func)(int[], int), const int *valores, const char *tipoOrden, int tipoAlgoritmo);
-double medirTiempo(void (*func)(int[], int), int v[], int n, bool *promedio, int k);
+void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) , double cotaSubestimada,double cotaAjustada,double cotaSobreestimada);
+void imprimirTablas();
+double medirTiempo(void (*func)(int*,int), const int n,int v[], bool *promedio);
 void inicializar_semilla();
-void aleatorio(int v [], int n);
+
+void aleatorio(int v[], int n);
 void ascendente(int v [], int n);
 void descendente(int v [], int n);
 void ord_ins(int v[], int n);
-void ord_rap_aux (int v [], int iz, int dr);
 void ord_rap (int v [], int n);
-double cotaAjustada(int n, int tipo);
-double cotaSubestimada(int n, int tipo);
-double cotaSobreestimada(int n, int tipo);
-void testInsercion(int *v, int tamaño, const char *tipoInicializacion);
-void testRapida(int *v, int tamaño, const char *tipoInicializacion);
-void test();
-bool estaOrdenado(int v[], int n);
-void imprimirArray(int v[], int n);
-void imprimirTablas();
+int esta_ordenado(int v[], int n);
+void imprimir_array(int v[], int n);
 
 
 //Realiza las pruebas de los algoritmos Fibonacci y muestra las tablas de tiempos
 int main(void) {
-    inicializar_semilla();
-    test();
+    //test();
     imprimirTablas();
     return 0;
 }
 
-//Obtiene la hora actual en microsegundos
-double microsegundos() {
-    struct timeval t;
-    if (gettimeofday(&t, NULL) < 0)
-        return 0.0; //Maneja el error en la obtención del tiempo
-    return (t.tv_usec + t.tv_sec * 1000000.0);
-}
-
-double medirTiempo(void (*func)(int[], int), int v[], int n, bool *promedio, int k) {
-    double t1, t2, t;
-    int j;
-    t1 = microsegundos();
-    func(v, n);
-    t2 = microsegundos();
-    t = t2 - t1;
-
-    if (t < 500) {
-        t1 = microsegundos();
-        for (j = 0; j < k; j++) {
-            func(v, n);
-        }
-        t2 = microsegundos();
-        t = (t2 - t1) / k;
-        *promedio = true;
-    }
-    return t;
-}
-
-void inicializar_semilla() {
-    srand(time(NULL));
-}
-void aleatorio(int v [], int n) {/* se generan números pseudoaleatorio entre -n y +n */
-    int i, m=2*n+1;
-    for (i=0; i < n; i++)
-        v[i] = (rand() % m) - n;
-}
-void ascendente(int v [], int n) {
-    int i;
-    for (i=0; i < n; i++)
-        v[i] = i;
-}
-
-void descendente(int v [], int n) {
-    int i;
-    for (i=0; i < n; i++)
-        v[i] = n-i;
-}
 
 void ord_ins(int v[], int n) {
     int x, j, i;
@@ -121,188 +67,162 @@ void ord_rap (int v [], int n) {
     ord_rap_aux(v, 0, n-1);
 }
 
-// Devuelve la cota subestimada para el algoritmo correspondiente
-double cotaSubestimada(int n, int tipo) {
-    switch (tipo) {
-        case 1: // Para la ordenación por inserción
-            return pow(n, 2); // O(n^2)
-        case 2: // Para la ordenación rápida (QuickSort)
-            return n * log(n); // O(n log n)
-        default:
-            return 1.0; // Valor por defecto
-    }
+void inicializar_semilla() {
+    srand(time(NULL));
 }
 
-// Devuelve la cota ajustada para el algoritmo correspondiente
-double cotaAjustada(int n, int tipo) {
-    switch (tipo) {
-        case 1: // Para la ordenación por inserción
-            return pow(n, 1.8); // O(n^1.8)
-        case 2: // Para la ordenación rápida (QuickSort)
-            return pow(n, 2); // O(n^2)
-        default:
-            return 1.0; // Valor por defecto
-    }
+void aleatorio(int v[], int n) {/* se generan números pseudoaleatorio entre -n y +n */
+    int i, m=2*n+1;
+    for (i=0; i < n; i++)
+        v[i] = (rand() % m) - n;
 }
-
-// Devuelve la cota sobreestimada para el algoritmo correspondiente
-double cotaSobreestimada(int n, int tipo) {
-    switch (tipo) {
-        case 1: // Para la ordenación por inserción
-            return pow(n, 2.2); // O(n^2.2)
-        case 2: // Para la ordenación rápida (QuickSort)
-            return pow(n, 2); // O(n^2)
-        default:
-            return 1.0; // Valor por defecto
-    }
-}
-
-// Función para verificar si un array está ordenado
-bool estaOrdenado(int v[], int n) {
+void ascendente(int v [], int n) {
     int i;
-    for (i = 1; i < n; i++) {
-        if (v[i - 1] > v[i]) {
-            return false;
+    for (i=0; i < n; i++)
+        v[i] = i;
+}
+
+void descendente(int v [], int n) {
+    int i;
+    for (i=0; i < n; i++)
+        v[i] = n-i;
+}
+
+// Verifica si el array esta ordenado
+int esta_ordenado(int v[], int n) {
+    int i;
+    for (i = 0; i < n - 1; i++) {
+        if (v[i] > v[i + 1]) {
+            return 0;
         }
     }
-    return true;
+    return 1;
 }
 
-// Función para imprimir un array
-void imprimirArray(int v[], int n) {
-    int i;
-    for (i = 0; i < n; i++) {
-        printf("%d", v[i]);
-        if (i < n - 1) {
-            printf(", ");
+void imprimir_array(int v[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (i == n - 1) {
+            printf("%d", v[i]);  // Último elemento sin coma
+        } else {
+            printf("%d, ", v[i]);  // Elementos anteriores con coma
         }
     }
     printf("\n");
 }
 
-// Función auxiliar para probar ordenación rápida (QuickSort)
-void testRapida(int *v, int tamaño, const char *tipoInicializacion) {
-    printf("Ordenacion rapida con inicializacion %s\n", tipoInicializacion);
 
-    // Inicializa el array según el tipo
-    if (strcmp(tipoInicializacion, "aleatoria") == 0) {
-        aleatorio(v, tamaño);
-    } else if (strcmp(tipoInicializacion, "ascendente") == 0) {
-        ascendente(v, tamaño);
-    } else if (strcmp(tipoInicializacion, "descendente") == 0) {
-        descendente(v, tamaño);
-    }
-
-    // Imprime el array inicial
-    imprimirArray(v, tamaño);
-    printf("ordenado? %d\n", estaOrdenado(v, tamaño));
+void ordenacion(void (*inicialización)(int*,int),void (*algoritmo) (int*,int),int n, int v[n]) {
+    inicialización(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
     printf("ordenando...\n");
-
-    // Ordena el array
-    ord_rap(v, tamaño);
-
-    // Imprime el array después de ordenar
-    imprimirArray(v, tamaño);
-    printf("ordenado? %d\n\n", estaOrdenado(v, tamaño));
+    algoritmo(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n\n", esta_ordenado(v, n));
 }
 
-// Función auxiliar para probar ordenación por inserción
-void testInsercion(int *v, int tamaño, const char *tipoInicializacion) {
-    printf("Ordenacion por insercion con inicializacion %s\n", tipoInicializacion);
 
-    // Inicializa el array según el tipo
-    if (strcmp(tipoInicializacion, "aleatoria") == 0) {
-        aleatorio(v, tamaño);
-    } else if (strcmp(tipoInicializacion, "ascendente") == 0) {
-        ascendente(v, tamaño);
-    } else if (strcmp(tipoInicializacion, "descendente") == 0) {
-        descendente(v, tamaño);
-    }
-
-    // Imprime el array inicial
-    imprimirArray(v, tamaño);
-    printf("ordenado? %d\n", estaOrdenado(v, tamaño));
-    printf("ordenando...\n");
-
-    // Ordena el array
-    ord_ins(v, tamaño);
-
-    // Imprime el array después de ordenar
-    imprimirArray(v, tamaño);
-    printf("ordenado? %d\n\n", estaOrdenado(v, tamaño));
+void imprimir_test(int n, int v[n],void (*algoritmo) (int*,int), char nombre_algoritmo[]) {
+    printf("Ordenacion %s con inicializacion aleatoria\n",nombre_algoritmo);
+    ordenacion(aleatorio,algoritmo,n, v);
+    printf("Ordenacion %s con inicializacion descendente\n",nombre_algoritmo);
+    ordenacion(descendente,algoritmo,n,v);
+    printf("Ordenacion %s con inicializacion ascendente\n",nombre_algoritmo);
+    ordenacion(ascendente,algoritmo,n,v);
 }
 
-// Función de prueba para los algoritmos de ordenación
+// Función de prueba que realiza las ordenaciones
 void test() {
-    int v[17];  // Vector de tamaño 17
-    int v2[10]; // Vector de tamaño 10
-
-    // Pruebas con ordenación por inserción
-    testInsercion(v, 17, "aleatoria");
-    testInsercion(v2, 10, "ascendente");
-    testInsercion(v2, 10, "descendente");
-
-    // Pruebas con ordenación rápida (QuickSort)
-    testRapida(v, 17, "aleatoria");
-    testRapida(v2, 10, "ascendente");
-    testRapida(v2, 10, "descendente");
+    inicializar_semilla();
+    int n = 17;
+    int v[n];
+    imprimir_test(n, v, ord_ins, "por inserción");
+    imprimir_test(n, v, ord_rap ,"rapida auxiliar");
 }
 
-// Imprime los tiempos de ejecución y las cotas de complejidad
-void imprimirTiempos(void (*func)(int[], int), const int *valores, const char *tipoOrden, int tipoAlgoritmo) {
-    int v[32000];
-    int i, n;
+//Obtiene la hora actual en microsegundos
+double microsegundos() {
+    struct timeval t;
+    if (gettimeofday(&t, NULL) < 0)
+        return 0.0; //Maneja el error en la obtención del tiempo
+    return (t.tv_usec + t.tv_sec * 1000000.0);
+}
+
+//Mide el tiempo de ejecución
+double medirTiempo(void (*func)(int*,int), const int n,int v[], bool *promedio) {
+    double t1, t2, t;
+    int j, k = 1000;
+    t1 = microsegundos();
+    func(v,n);
+    t2 = microsegundos();
+    t = t2 - t1;
+
+    //Si el tiempo es menor que 500 microsegundos
+    if (t < 500) {
+        t1 = microsegundos();
+        for (j = 0; j < k; j++)
+            func(v,n); //Llama a la función varias veces
+        t2 = microsegundos();
+        t = (t2 - t1) / k;
+        *promedio = true; //Indica que se realizó un promedio
+    }
+    return t;
+}
+
+
+//Imprime los tiempos de ejecución de la función dada
+void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) , double cotaSubestimada,double cotaAjustada,double cotaSobreestimada) {
+    int i, v[32000];
     double t, x, y, z;
     bool promedio;
 
-    // Encabezado de la tabla
-    printf("\nOrdenación %s con inicialización %s\n", tipoAlgoritmo == 1 ? "por inserción" : "rápida (QuickSort)", tipoOrden);
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2", "t(n)/n^2.2");
+    for (i = 500; i <= 32000; i*= 2) {
+        promedio = false;   //Indica si se calcula el promedio
+        inicialización(v,i);
+        t = medirTiempo(algoritmo, i,v, &promedio);
+        x = t / pow(i,cotaSubestimada);
+        y = t / pow(i,cotaAjustada);
+        z = t / pow(i,cotaSobreestimada);
 
-    for (i = 0; i < 6; i++) {
-        n = valores[i];
-        promedio = false;
-
-        //Inicializa el vector de acuerdo con el tipo de orden
-        if (strcmp(tipoOrden, "Ascendente") == 0) {
-            ascendente(v, n);
-        } else if (strcmp(tipoOrden, "Descendente") == 0) {
-            descendente(v, n);
-        } else if (strcmp(tipoOrden, "Aleatorio") == 0) {
-            aleatorio(v, n);
-        }
-
-        t = medirTiempo(func, v, n, &promedio, 1000);
-
-        // Cálculo de las cotas de complejidad
-        x = t / cotaSubestimada(n, tipoAlgoritmo);
-        y = t / cotaAjustada(n, tipoAlgoritmo);
-        z = t / cotaSobreestimada(n, tipoAlgoritmo);
-
-        // Imprimir fila de la tabla
         if (promedio) {
-            printf("*");
+            printf("*"); //Marca si se hizo un promedio
         } else {
-            printf(" ");
+            printf(" "); //Marca si no se hizo un promedio, para mantener la alineación
         }
-        printf("%12d%17.4f%18.6f%18.6f%20.8f\n", n, t, x, y, z);
+        printf("%12d%17.4f%18.6f%18.6f%20.6f\n", i, t, x, y, z);
     }
 }
 
 // Imprime las tablas de tiempos para los diferentes algoritmos de ordenación
 void imprimirTablas() {
-    int valores[6] = {100, 200, 400, 800, 1600, 3200};
-
 
     //Ordenación por Inserción
-    imprimirTiempos(ord_ins, valores, "Ascendente", 1);
-    imprimirTiempos(ord_ins, valores, "Descendente", 1);
-    imprimirTiempos(ord_ins, valores, "Aleatorio", 1);
+    printf("\nOrdenación por inserción con inicialización ascendente\n");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.8", "t(n)/n^1.0", "t(n)/n^1.2");
+    imprimirTiempos(ord_ins,  ascendente, 0.8,1.0,1.2);
+
+    printf("\nOrdenación por inserción con inicialización descendente\n");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    imprimirTiempos(ord_ins,  descendente, 1.8,2.0,2.2);
+
+    printf("\nOrdenación por inserción con inicialización aleatorio\n");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
+    imprimirTiempos(ord_ins,  aleatorio, 1.8,2.0,2.2);
 
     //Ordenación rápida
-    imprimirTiempos(ord_rap, valores, "Ascendente", 2);
-    imprimirTiempos(ord_rap, valores, "Descendente", 2);
-    imprimirTiempos(ord_rap, valores, "Aleatorio", 2);
+    printf("\nOrdenación rápida con inicialización ascendente\n");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
+    imprimirTiempos(ord_rap,  ascendente, 1.0,1.15,1.3);
+
+    printf("\nOrdenación rápida con inicialización descendente\n");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
+    imprimirTiempos(ord_rap,  descendente, 1.0,1.15,1.3);
+
+    printf("\nOrdenación rápida con inicialización aleatoria\n");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
+    imprimirTiempos(ord_rap,  aleatorio, 1.0,1.15,1.3);
 }
 
 
+//Si la sucesion decrece sera cota sobreestimada
+//Si la sucesión crece sera cota subestimada
