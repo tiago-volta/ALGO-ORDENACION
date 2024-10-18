@@ -42,23 +42,23 @@ Para garantizar la precisión de las mediciones, se estableció un umbral de con
 k veces (k= 1000) y se obtiene el promedio dividiendo el tiempo total entre las ejecuciones. 
 Los casos donde se aplicó este procedimiento están marcados con un asterisco en las tablas.
 
-   ***** Test Ordenación por inserción*****
-   ----------------------------------------
-Ordenacion por inserción con inicializacion aleatoria
+   ***** Test de Ordenación por inserción*****
+   -------------------------------------------
+Ordenacion por inserción con inicialización aleatoria
 -15, -8, 5, -10, -5, -1, -5, -1, 4, -3, 2, 17, 17, 14, -7, -13, -4
 ordenado? 0
 ordenando...
 -15, -13, -10, -8, -7, -5, -5, -4, -3, -1, -1, 2, 4, 5, 14, 17, 17
 ordenado? 1
 
-Ordenacion por inserción con inicializacion descendente
+Ordenacion por inserción con inicialización descendente
 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
 ordenado? 0
 ordenando...
 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
 ordenado? 1
 
-Ordenacion por inserción con inicializacion ascendente
+Ordenacion por inserción con inicialización ascendente
 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
 ordenado? 1
 ordenando...
@@ -68,21 +68,21 @@ ordenado? 1
   ***** Test por Ordenación rápida *****
   --------------------------------------
 
-Ordenacion rapida auxiliar con inicializacion aleatoria
+Ordenacion rapida auxiliar con inicialización aleatoria
 -2, -11, -3, -11, 15, -9, -12, -8, 1, 8, 2, -3, -16, 16, -5, -11, 2
 ordenado? 0
 ordenando...
 -16, -12, -11, -11, -11, -9, -8, -5, -3, -3, -2, 1, 2, 2, 8, 15, 16
 ordenado? 1
 
-Ordenacion rapida auxiliar con inicializacion descendente
+Ordenacion rapida auxiliar con inicialización descendente
 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1
 ordenado? 0
 ordenando...
 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
 ordenado? 1
 
-Ordenacion rapida auxiliar con inicializacion ascendente
+Ordenacion rapida auxiliar con inicialización ascendente
 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
 ordenado? 1
 ordenando...
