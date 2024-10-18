@@ -38,9 +38,9 @@ UNIDADES DE TIEMPO UTILIZADAS
 
 En este informe los tiempos de ejecución de los algoritmos se midieron en microsegundos.
 Para garantizar la precisión de las mediciones, se estableció un umbral de confianza de 
-500 microsegundos, si el tiempo de ejecución es menor el algoritmo se repite k veces y 
-se obtiene el promedio dividiendo el tiempo total entre las ejecuciones. Los casos donde
-se aplicó este procedimiento están marcados con un asterisco en las tablas.
+500 microsegundos. Si el tiempo de ejecución es menor a este valor el algoritmo se repite
+k veces (k= 1000) y se obtiene el promedio dividiendo el tiempo total entre las ejecuciones. 
+Los casos donde se aplicó este procedimiento están marcados con un asterisco en las tablas.
 
    ***** Test Ordenación por inserción*****
    ----------------------------------------
