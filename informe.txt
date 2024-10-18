@@ -8,17 +8,19 @@ Matías Alberto González Aliendre
 Pablo Jesús Herrero Díaz
 Tiago Da Costa Teixeira Veloso e Volta
 
-
----------------------
+ORDENACION POR INSERCION Y ORDENACION RAPIDA
+--------------------------------------------
 
 ****INTRODUCCION*****
 --------------------
 
-En esta práctica de algoritmos se desarrollan y comparan los algoritmos de ordenamiento 
-por inserción y ordenamiento rápido con selección aleatoria del pivote para ordenar 
-vectores de números enteros. Se evalúan los tiempos de ejecución en tres casos: 
-vector ordenado ascendentementedescendente y desordenado aleatoriamente, a fin de 
-analizar su eficiencia con diferentes conjuntos de datos.
+En esta práctica de algoritmos, se implementan y comparan dos algoritmos de ordenación:
+la ordenación por inserción y la ordenación rápida con selección aleatoria del pivote. 
+El objetivo es analizar su eficencia al ordenar vectores de números enteros en tres casos 
+diferentes: un vector ordenado ascendentemente, un vector ordenado descendentemente y un 
+vector desordenado aleatoriamente.
+Para cada caso, se miden y comparan los tiempos de ejecución de ambos algoritmos, permitiendo
+así evaluar su eficiencia con diferentes conjuntos de datos.
 
 ****MAQUINA*******
 ------------------
