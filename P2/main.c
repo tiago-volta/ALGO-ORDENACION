@@ -208,12 +208,12 @@ void imprimirTablas() {
     //Peor Caso : O(n^2)(lista ordenada en orden inverso).
 
     printf("\nOrdenación por inserción con inicialización ascendente\n");
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.8", "t(n)/n^1.0", "t(n)/n^1.2");
-    imprimirTiempos(ord_ins,  ascendente, 0.7,0.9,1.1);
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.75", "t(n)/n^'0.95", "t(n)/n^1.15");
+    imprimirTiempos(ord_ins,  ascendente, 0.75,0.95,1.15);
 
     printf("\nOrdenación por inserción con inicialización descendente\n");
     printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
-    imprimirTiempos(ord_ins,  descendente, 1.8,2.0,2.2);
+    imprimirTiempos(ord_ins,  descendente, 1.8,2.0, 2.2);
 
     printf("\nOrdenación por inserción con inicialización aleatorio\n");
     printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
@@ -225,17 +225,17 @@ void imprimirTablas() {
     //Peor Caso: O(n^2)(cuando el pivote es el menor o el mayor elemento repetidamente, como en un array ordenado).
 
     printf("\nOrdenación rápida con inicialización ascendente\n");
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.9", "t(n)/n^1.1", "t(n)/n^1.3");
     imprimirTiempos(ord_rap,  ascendente, 0.9,1.1,1.3);
 
     printf("\nOrdenación rápida con inicialización descendente\n");
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
-    imprimirTiempos(ord_rap,  descendente, 0.9,1.1,1.3);
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.8", "t(n)/n^1.12", "t(n)/n^1.2");
+    imprimirTiempos(ord_rap,  descendente, 0.87,1.136,1.27);
 
 
     printf("\nOrdenación rápida con inicialización aleatoria\n");
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.1", "t(n)/n^1.3");
-    imprimirTiempos(ord_rap,  aleatorio, 0.825,1.025,1.225);
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.84", "t(n)/n^1.04", "t(n)/n^1.24");
+    imprimirTiempos(ord_rap,  aleatorio, 0.84,1.04,1.24);
 }
 
 
