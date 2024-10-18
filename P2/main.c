@@ -11,7 +11,7 @@ void test();
 double microsegundos();
 void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) , double cotaSubestimada,double cotaAjustada,double cotaSobreestimada);
 void imprimirTablas();
-double medirTiempo(void (*func)(int*,int), const int n,int v[], bool *promedio);
+double medirTiempo(void (*func)(int*,int),void (*inicialización)(int*,int) , const int n,int v[], bool *promedio);
 void inicializar_semilla();
 
 void aleatorio(int v[], int n);
@@ -25,6 +25,7 @@ void imprimir_array(int v[], int n);
 
 //Realiza las pruebas de los algoritmos Fibonacci y muestra las tablas de tiempos
 int main(void) {
+    inicializar_semilla();
     //test();
     imprimirTablas();
     return 0;
@@ -149,9 +150,13 @@ double microsegundos() {
 }
 
 //Mide el tiempo de ejecución
-double medirTiempo(void (*func)(int*,int), const int n,int v[], bool *promedio) {
+double medirTiempo(void (*func)(int*,int),void (*inicialización)(int*,int) , const int n,int v[], bool *promedio) {
     double t1, t2, t;
     int j, k = 1000;
+
+    inicialización(v,n);
+
+
     t1 = microsegundos();
     func(v,n);
     t2 = microsegundos();
@@ -160,8 +165,10 @@ double medirTiempo(void (*func)(int*,int), const int n,int v[], bool *promedio) 
     //Si el tiempo es menor que 500 microsegundos
     if (t < 500) {
         t1 = microsegundos();
-        for (j = 0; j < k; j++)
+        for (j = 0; j < k; j++) {
+            inicialización(v,n);
             func(v,n); //Llama a la función varias veces
+        }
         t2 = microsegundos();
         t = (t2 - t1) / k;
         *promedio = true; //Indica que se realizó un promedio
@@ -178,8 +185,7 @@ void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,
 
     for (i = 500; i <= 32000; i*= 2) {
         promedio = false;   //Indica si se calcula el promedio
-        inicialización(v,i);
-        t = medirTiempo(algoritmo, i,v, &promedio);
+        t = medirTiempo(algoritmo,inicialización, i,v, &promedio);
         x = t / pow(i,cotaSubestimada);
         y = t / pow(i,cotaAjustada);
         z = t / pow(i,cotaSobreestimada);
@@ -197,9 +203,13 @@ void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,
 void imprimirTablas() {
 
     //Ordenación por Inserción
+    //Mejor Caso: O(n) (lista ya ordenada).
+    //Caso Promedio: O(n^2).
+    //Peor Caso : O(n^2)(lista ordenada en orden inverso).
+
     printf("\nOrdenación por inserción con inicialización ascendente\n");
     printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^0.8", "t(n)/n^1.0", "t(n)/n^1.2");
-    imprimirTiempos(ord_ins,  ascendente, 0.8,1.0,1.2);
+    imprimirTiempos(ord_ins,  ascendente, 0.7,0.9,1.1);
 
     printf("\nOrdenación por inserción con inicialización descendente\n");
     printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.8", "t(n)/n^2.0", "t(n)/n^2.2");
@@ -210,17 +220,22 @@ void imprimirTablas() {
     imprimirTiempos(ord_ins,  aleatorio, 1.8,2.0,2.2);
 
     //Ordenación rápida
+    //Mejor Caso: O(nlogn) (cuando el pivote divide la lista equilibradamente).
+    //Caso Promedio : O(nlogn).
+    //Peor Caso: O(n^2)(cuando el pivote es el menor o el mayor elemento repetidamente, como en un array ordenado).
+
     printf("\nOrdenación rápida con inicialización ascendente\n");
     printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
-    imprimirTiempos(ord_rap,  ascendente, 1.0,1.15,1.3);
+    imprimirTiempos(ord_rap,  ascendente, 0.9,1.1,1.3);
 
     printf("\nOrdenación rápida con inicialización descendente\n");
     printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
-    imprimirTiempos(ord_rap,  descendente, 1.0,1.15,1.3);
+    imprimirTiempos(ord_rap,  descendente, 0.9,1.1,1.3);
+
 
     printf("\nOrdenación rápida con inicialización aleatoria\n");
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.15", "t(n)/n^1.3");
-    imprimirTiempos(ord_rap,  aleatorio, 1.0,1.15,1.3);
+    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", "t(n)/n^1.0", "t(n)/n^1.1", "t(n)/n^1.3");
+    imprimirTiempos(ord_rap,  aleatorio, 0.825,1.025,1.225);
 }
 
 
