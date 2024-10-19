@@ -19,7 +19,7 @@ typedef struct {
 //Cabeceras de las funciones
 void test();
 double microsegundos();
-void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) ,Cotas *cotas);
+void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) ,Cotas *cotas,int tipo);
 void imprimirTablas();
 double medirTiempo(void (*func)(int*,int),void (*inicialización)(int*,int) , const int n, bool *promedio);
 void inicializar_semilla();
@@ -37,7 +37,7 @@ void imprimir_array(int v[], int n);
 int main(void) {
     inicializar_semilla();
     test();
-    //imprimirTablas();
+    imprimirTablas();
     return 0;
 }
 
@@ -231,8 +231,43 @@ void imprimirFila(int n, double t, double x, double y, double z, bool promedio) 
     printf("%12d%17.4f%18.6f%18.7f%20.7f\n", n, t, x, y, z);
 }
 
+//Devuelve la cota subestimada para el algoritmo correspondiente
+double cotaSubestimada(int n, int tipo, Cotas *cotas) {
+    switch (tipo) {
+        case 1: //Para fib1
+            return pow(n,cotas->cotaSubestimada);
+        case 2: //Para fib2
+            return pow(n,cotas->cotaSubestimada) * log(n);
+        default:
+            return 1.0; //Valor por defecto
+    }
+}
+
+//Devuelve la cota ajustada para el algoritmo correspondiente
+double cotaAjustada(int n, int tipo, Cotas *cotas) {
+    switch (tipo) {
+        case 1: // Para fib1
+            return pow(n,cotas->cotaAjustada);
+        case 2: // Para fib2
+            return pow(n,cotas->cotaSubestimada) * log(n);
+        default:
+            return 1.0; //Valor por defecto
+    }
+}
+
+double cotaSobreestimada(int n, int tipo, Cotas *cotas) {
+    switch (tipo) {
+        case 1:
+            return pow(n,cotas->cotaSobreestimada);
+        case 2:
+            return pow(n,cotas->cotaSubestimada) * log(n);
+        default:
+            return 1.0; //Valor por defecto
+    }
+}
+
 //Imprime los tiempos de ejecución de la función dada
-void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) ,Cotas *cotas) {
+void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,int) ,Cotas *cotas,int tipo) {
     int i;
     double t, x, y, z;
     bool promedio;
@@ -240,9 +275,9 @@ void imprimirTiempos(void (*algoritmo)(int[],int), void (*inicialización)(int*,
     for (i = 500; i <= 32000; i*= 2) {
         promedio = false;   //Indica si se calcula el promedio
         t = medirTiempo(algoritmo,inicialización, i, &promedio);
-        x = t / pow(i, cotas->cotaSubestimada);
-        y = t / pow(i, cotas->cotaAjustada);
-        z = t / pow(i, cotas->cotaSobreestimada);
+        x = t / cotaSubestimada(i, tipo, cotas);
+        y = t / cotaAjustada(i, tipo, cotas);
+        z = t / cotaSubestimada(i, tipo, cotas);
 
         imprimirFila(i,t,x,y,z,promedio);
     }
@@ -262,37 +297,37 @@ void imprimirTablas() {
     cotas = (Cotas){0.78, 0.98, 1.18, "n^0.78",
         "n^0.98", "n^1.18"};
     imprimirEncabezado("por inserción", "ascendente", &cotas);
-    imprimirTiempos(ord_ins, ascendente, &cotas);
+    imprimirTiempos(ord_ins, ascendente, &cotas,1);
 
     // Ordenación por Inserción con inicialización descendente
     cotas = (Cotas){1.8, 2.0, 2.2, "n^1.8 ",
         "n^2.0 ", "n^2.2"};
     imprimirEncabezado("por inserción", "descendente", &cotas);
-    imprimirTiempos(ord_ins, descendente, &cotas);
+    imprimirTiempos(ord_ins, descendente, &cotas,1);
 
     // Ordenación por Inserción con inicialización aleatoria
     cotas = (Cotas){1.79, 1.99, 2.19, "n^1.79",
         "n^1.99", "n^2.19"};
     imprimirEncabezado("por inserción", "aleatoria", &cotas);
-    imprimirTiempos(ord_ins, aleatorio, &cotas);
+    imprimirTiempos(ord_ins, aleatorio, &cotas,1);
 
     // Ordenación rápida con inicialización ascendente
     cotas = (Cotas){0.94, 1.14, 1.34, "n^0.94",
-        "n^1.14", "n^1.34"};
+        "n*log(n)", "n^1.34"};
     imprimirEncabezado("rápida", "ascendente", &cotas);
-    imprimirTiempos(ord_rap, ascendente, &cotas);
+    imprimirTiempos(ord_rap, ascendente, &cotas,2);
 
     // Ordenación rápida con inicialización descendente
     cotas = (Cotas){0.94, 1.14, 1.34, "n^0.94",
         "n^1.14", "n^1.34"};
     imprimirEncabezado("rápida", "descendente", &cotas);
-    imprimirTiempos(ord_rap, descendente, &cotas);
+    imprimirTiempos(ord_rap, descendente, &cotas,2);
 
     // Ordenación rápida con inicialización aleatoria
     cotas = (Cotas){0.9, 1.1, 1.3, "n^0.9 ",
         "n^1.1 ", "n^1.3"};
     imprimirEncabezado("rápida", "aleatoria", &cotas);
-    imprimirTiempos(ord_rap, aleatorio, &cotas);
+    imprimirTiempos(ord_rap, aleatorio, &cotas,2);
 }
     //Ordenación rápida
     //Mejor Caso: O(nlogn) (cuando el pivote divide la lista equilibradamente).
