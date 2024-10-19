@@ -219,7 +219,8 @@ La cota empírica coincide exactamente con el peor caso teórico, O(n^2), que oc
 Cada nuevo elemento tiene que ser comparado y desplazado, lo que genera un comportamiento cuadrático en tiempo.
 
 - Ordenación por Inserción con inicialización aleatoria
-La cota empírica de O(n^1.99) es también consistente con el peor caso teórico, O(n^2). Esto indica que, aunque la lista está desordenada, el rendimiento también se aproxima a la complejidad cuadrática. 
+La cota empírica de O(n^1.99) es también consistente con el peor caso teórico, O(n^2). Esto indica que, aunque la lista está desordenada,
+el rendimiento también se aproxima a la complejidad cuadrática. 
 
 - Ordenación rápida con inicialización ascendente
 La cota empírica de O(n^0.959*log(n)) es inferior a O(n*log(n)). Esto sugiere un rendimiento óptimo debido a su cercanía a la cota teórica.
