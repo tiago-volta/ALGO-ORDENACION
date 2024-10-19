@@ -225,17 +225,17 @@ La cota empírica de O(n^1.99) es también consistente con el peor caso teórico
 el rendimiento se aproxima a la complejidad cuadrática. 
 
 - Ordenación rápida con inicialización ascendente
-La cota empírica de O(n^0.959) es inferior a O(nlogn). Esto sugiere un rendimiento aceptable, aunque no óptimo, en listas ya ordenadas.
+La cota empírica de O(n^0.959*log(n)) es inferior a O(nlogn). Esto sugiere un rendimiento aceptable, aunque no óptimo, en listas ya ordenadas.
 Este comportamiento puede deberse a una elección ineficiente de pivotes, ya que las implementaciones básicas de Quicksort que seleccionan el primer
 o último elemento como pivote tienden a producir particiones desiguales en listas ordenadas.
 
 - Ordenación rápida con inicialización descendente
-El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956) sugiere un rendimiento peor que O(nlogn) pero mejor que O(n^2).
+El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956*log(n)) sugiere un rendimiento peor que O(nlogn) pero mejor que O(n^2).
 Esto es típico cuando el pivote se elige de manera ineficiente en listas en orden inverso,
 lo que genera particiones desequilibradas que incrementan el tiempo de ejecución.
 
 - Ordenación rápida con inicialización aleatoria
-La cota empírica de O(n^0.98) está cerca de O(nlogn). Esto indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando
+La cota empírica de O(n^0.98*log(n)) está cerca de O(nlogn). Esto indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando
 mejor que en el peor caso, aunque no alcanza la eficiencia óptima teórica. 
 La elección aleatoria de pivotes tiende a ser más eficiente, generando particiones más equilibradas y, por tanto, 
 un rendimiento cercano al óptimo esperado de O(nlogn). 
