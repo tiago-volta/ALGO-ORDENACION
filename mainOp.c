@@ -42,7 +42,7 @@ int main(void) {
     return 0;
 }
 
-// Algoritmo de ordenación por inserción
+// Implementación del algoritmo de ordenación por inserción
 void ord_ins(int v[], int n) {
     int x, j, i;
     for (i = 1; i < n; i++) {
@@ -56,7 +56,7 @@ void ord_ins(int v[], int n) {
     }
 }
 
-// Algoritmo auxiliar de ordenación rápida
+// Implementación del algoritmo auxiliar de ordenación rápida
 void ord_rap_aux(int v[], int iz, int dr) {
     int i, j, x, y;
     i = iz;
@@ -77,7 +77,7 @@ void ord_rap_aux(int v[], int iz, int dr) {
     if (i < dr) ord_rap_aux(v, i, dr);
 }
 
-// Algoritmo de ordenación rápida
+// Implementación del algoritmo de ordenación rápida
 void ord_rap(int v[], int n) {
     ord_rap_aux(v, 0, n - 1);
 }
@@ -210,7 +210,7 @@ void imprimirFila(int n, double t, double x, double y, double z, bool promedio) 
     printf("%12d%17.4f%18.6f%18.6f%20.6f\n", n, t, x, y, z);
 }
 
-// Imprime los tiempos de ejecución de la función dada usando el struct de cotas
+// Imprime los tiempos de ejecución de la función dada usando el struct de las cotas
 void imprimirTiempos(void (*algoritmo)(int[], int), void (*inicialización)(int*, int), Cotas *cotas) {
     int i, v[32000];
     double t, x, y, z;
