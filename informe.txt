@@ -222,13 +222,17 @@ Cada nuevo elemento tiene que ser comparado y desplazado, lo que genera un compo
 La cota empírica de O(n^1.99) es también consistente con el peor caso teórico, O(n^2). Esto indica que, aunque la lista está desordenada, el rendimiento también se aproxima a la complejidad cuadrática. 
 
 - Ordenación rápida con inicialización ascendente
-La cota empírica de O(n^0.959*log(n)) es inferior a O(n*log(n)). Esto sugiere un rendimiento óptimo debido a su cercanía a la cota teórica, Esto, a diferencia de cuando el pivote se elige de manera ineficiente que supondría un rendimiento de O(n^2),
+La cota empírica de O(n^0.959*log(n)) es inferior a O(n*log(n)). Esto sugiere un rendimiento óptimo debido a su cercanía a la cota teórica.
+Esto, a diferencia de cuando el pivote se elige de manera ineficiente que supondría un rendimiento de O(n^2),
 supone un comportamiento cercano a O(n*log(n)) debido a la obtención del pivote de forma aleatoria.
 
 - Ordenación rápida con inicialización descendente
-El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956*log(n)) sugiere un rendimiento muy cercano a O(n*log(n)). Esto es debido en principal medida a la obtención del pivote de forma aleatoria.
+El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956*log(n)) sugiere un rendimiento muy cercano a O(n*log(n)).
+Esto es debido en principal medida a la obtención del pivote de forma aleatoria.
 
 - Ordenación rápida con inicialización aleatoria
 La cota empírica de O(n^0.98*log(n)) está cerca de O(nlogn). Esto indica que como en los demás casos la eficiencia del algoritmo es prácticamente la teórica.
 
-Estas mediciones del algoritmo rápido indican que la implementación del algoritmo rápido es efectiva para prácticamente todas las entradas de datos y está funcionando mejor que otras formas de implementar este algoritmo, gracias a la elección aleatoria de pivotes que tiende a ser más eficiente, generando particiones más equilibradas y, por tanto, un rendimiento cercano al óptimo esperado de O(n*log(n)). 
+Estas mediciones del algoritmo rápido indican que la implementación del algoritmo rápido es efectiva para prácticamente todas las entradas de datos
+y está funcionando mejor que otras formas de implementar este algoritmo, gracias a la elección aleatoria de pivotes que tiende a ser más eficiente,
+generando particiones más equilibradas y, por tanto, un rendimiento cercano al óptimo esperado de O(n*log(n)). 
