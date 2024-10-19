@@ -4,16 +4,16 @@
 #include <sys/time.h>
 #include <stdbool.h>
 #include <math.h>
-// #include <string.h>
+
 
 // Definición de la estructura para las cotas
 typedef struct {
     double cotaSubestimada;
     double cotaAjustada;
     double cotaSobreestimada;
-    char strCotaSubestimada[10];
-    char strCotaAjustada[10];
-    char strCotaSobreestimada[10];
+    const char *strCotaSubestimada;
+    const char *strCotaAjustada;
+    const char *strCotaSobreestimada;
 } Cotas;
 
 // Cabeceras de las funciones
@@ -196,9 +196,24 @@ double medirTiempo(void (*func)(int*, int), void (*inicialización)(int*, int), 
 // Función para imprimir el encabezado de las tablas
 void imprimirEncabezado(const char *nombreAlgoritmo, const char *initType, Cotas *cotas) {
     printf("\nOrdenación %s con inicialización %s\n", nombreAlgoritmo, initType);
-    printf("\n%13s%16s%20s%17s%20s\n", "n", "t(n)", cotas->strCotaSubestimada, cotas->strCotaAjustada,
-        cotas->strCotaSobreestimada);
+
+    // Usar temporales para evitar modificar las cadenas originales
+    char tempSubestimada[50], tempAjustada[50], tempSobreestimada[50];
+
+    snprintf(tempSubestimada, sizeof(tempSubestimada), "t(n)/%s", cotas->strCotaSubestimada);
+    snprintf(tempAjustada, sizeof(tempAjustada), "t(n)/%s", cotas->strCotaAjustada);
+    snprintf(tempSobreestimada, sizeof(tempSobreestimada), "t(n)/%s", cotas->strCotaSobreestimada);
+
+    // Imprimir los encabezados de la tabla con el formato correcto
+    printf("\n%13s%16s%20s%17s%20s\n",
+           "n",
+           "t(n)",
+           tempSubestimada,
+           tempAjustada,
+           tempSobreestimada);
 }
+
+
 
 // Función para imprimir una fila de la tabla
 void imprimirFila(int n, double t, double x, double y, double z, bool promedio) {
@@ -256,8 +271,8 @@ void imprimirTablas() {
     imprimirTiempos(ord_rap, ascendente, &cotas);
 
     // Ordenación rápida con inicialización descendente
-    cotas = (Cotas){1.0, 1.15, 1.3, "n^1.0",
-        "n^1.15", "n^1.3"};
+    cotas = (Cotas){0.92, 1.12, 1.32, "n^0.92",
+        "n^1.12", "n^1.32"};
     imprimirEncabezado("rápida", "descendente", &cotas);
     imprimirTiempos(ord_rap, descendente, &cotas);
 
