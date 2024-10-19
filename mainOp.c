@@ -37,6 +37,7 @@ void imprimirFila(int n, double t, double x, double y, double z, bool promedio);
 // Realiza las pruebas de los algoritmos de ordenación y muestra las tablas de tiempos
 int main(void) {
     inicializar_semilla();
+    test();
     imprimirTablas();
     return 0;
 }
@@ -116,6 +117,35 @@ int esta_ordenado(int v[], int n) {
         }
     }
     return 1;
+}
+
+void ordenacion(void (*inicialización)(int*,int),void (*algoritmo) (int*,int),int n, int v[n]) {
+    inicialización(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n", esta_ordenado(v, n));
+    printf("ordenando...\n");
+    algoritmo(v, n);
+    imprimir_array(v, n);
+    printf("ordenado? %d\n\n", esta_ordenado(v, n));
+}
+
+
+void imprimir_test(int n, int v[n],void (*algoritmo) (int*,int), char nombre_algoritmo[]) {
+    printf("Ordenacion %s con inicializacion aleatoria\n",nombre_algoritmo);
+    ordenacion(aleatorio,algoritmo,n, v);
+    printf("Ordenacion %s con inicializacion descendente\n",nombre_algoritmo);
+    ordenacion(descendente,algoritmo,n,v);
+    printf("Ordenacion %s con inicializacion ascendente\n",nombre_algoritmo);
+    ordenacion(ascendente,algoritmo,n,v);
+}
+
+// Función de prueba que realiza las ordenaciones
+void test() {
+    inicializar_semilla();
+    int n = 17;
+    int v[n];
+    imprimir_test(n, v, ord_ins, "por inserción");
+    imprimir_test(n, v, ord_rap ,"rapida auxiliar");
 }
 
 // Imprime un array
