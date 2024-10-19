@@ -212,9 +212,9 @@ se mantiene durante todas las mediciones.
 Además como comprobación también podemos compararlas con las complejidades teóricas de los algoritmos.
 
 - Ordenación por Inserción con inicialización ascendente
-LLa cota empírica de O(n^0.98) está muy cerca de O(n), lo cual es consistente con el mejor caso teórico del algoritmo de inserción,
+La cota empírica de O(n^0.98) está muy cerca de O(n), lo cual es consistente con el mejor caso teórico del algoritmo de inserción,
 que es O(n) cuando la lista ya está ordenada.
-En este caso, el algoritmo simplemente recorre la lista.
+En este caso, el algoritmo simplemente recorre la lista sin realizar cambios.
 
 - Ordenación por Inserción con inicialización descendente
 La cota empírica coincide exactamente con el peor caso teórico, O(n^2), que ocurre cuando los datos están en orden inverso.
@@ -225,17 +225,17 @@ La cota empírica de O(n^1.99) es también consistente con el peor caso teórico
 el rendimiento se aproxima a la complejidad cuadrática. 
 
 - Ordenación rápida con inicialización ascendente
-La cota empírica de O(n^1.14) es superior a O(n), pero no llega a O(nlogn). Esto sugiere un rendimiento aceptable, aunque no óptimo, en listas ya ordenadas.
+La cota empírica de O(n^0.959) es inferior a O(nlogn). Esto sugiere un rendimiento aceptable, aunque no óptimo, en listas ya ordenadas.
 Este comportamiento puede deberse a una elección ineficiente de pivotes, ya que las implementaciones básicas de Quicksort que seleccionan el primer
 o último elemento como pivote tienden a producir particiones desiguales en listas ordenadas.
 
 - Ordenación rápida con inicialización descendente
-El comportamiento es similar al caso ascendente. La cota empírica de O(n^1.14) sugiere un rendimiento peor que O(nlogn) pero mejor que O(n^2).
+El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956) sugiere un rendimiento peor que O(nlogn) pero mejor que O(n^2).
 Esto es típico cuando el pivote se elige de manera ineficiente en listas en orden inverso,
 lo que genera particiones desequilibradas que incrementan el tiempo de ejecución.
 
 - Ordenación rápida con inicialización aleatoria
-La cota empírica de O(n^1.1) está cerca de O(nlogn). Esto indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando
+La cota empírica de O(n^0.98) está cerca de O(nlogn). Esto indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando
 mejor que en el peor caso, aunque no alcanza la eficiencia óptima teórica. 
 La elección aleatoria de pivotes tiende a ser más eficiente, generando particiones más equilibradas y, por tanto, 
 un rendimiento cercano al óptimo esperado de O(nlogn). 
