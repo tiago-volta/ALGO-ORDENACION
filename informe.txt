@@ -210,5 +210,38 @@ La cota subestimada crece de forma constante, la cota sobrestimada decrece de fo
 se mantiene durante todas las mediciones.
 
 
+Además como comprobación también podemos compararlas con las complejidades teóricas de los algoritmos.
+
+- Ordenación por Inserción con inicialización ascendente
+La cota empírica de O(n^0.98) es muy cercana a O(n) (la cota esperada),
+dado que el algoritmo de inserción funciona mejor con datos ordenados.
+
+- Ordenación por Inserción con inicialización descendente
+La cota empírica coincide exactamente con el peor caso teórico del algoritmo O(n^2),
+lo cual es esperado en este caso, dado que cada nuevo elemento debe ser comparado
+y movido a su posición correcta.
+
+- Ordenación por Inserción con inicialización aleatoria
+La cota empírica de O(n1.99)O(n1.99) es también consistente con el peor caso teórico.
+Esto indica que, aunque la lista está desordenada, el rendimiento se aproxima a la complejidad cuadrática.
+Esto es típico en listas aleatorias, donde el comportamiento puede variar, pero en promedio se mantiene en el orden cuadrático.
+
+- Ordenación rápida con inicialización ascendente
+La cota empírica de O(n1.14)O(n1.14) es un poco más alta que O(n)O(n), pero no llega a O(nlogn).
+Esto indica un buen rendimiento, aunque no óptimo, en listas ya ordenadas. Esto puede suceder si la implementación de Quicksort elige pivotes de forma menos eficiente en el caso de listas ordenadas.
+
+- Ordenación rápida con inicialización descendente
+Al igual que el caso anterior, la cota empírica de O(n1.14)O(n1.14) sugiere un rendimiento aceptable, pero no óptimo.
+Es interesante notar que, a pesar de la inicialización descendente, el rendimiento sigue siendo consistente,
+lo que podría indicar que la selección de pivotes está minimizando el impacto del orden inverso en el rendimiento.
+
+- Ordenación rápida con inicialización aleatoria
+
+La cota empírica de O(n1.1)O(n1.1) es un poco más alta que O(n)O(n) y aún por debajo de O(nlogn).
+Esto es un buen resultado, ya que indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando mejor que en el peor caso, pero aún no alcanza la eficiencia óptima teórica.
+
+
+
+
 
 
