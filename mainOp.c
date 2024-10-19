@@ -256,8 +256,8 @@ void imprimirTablas() {
     imprimirTiempos(ord_rap, ascendente, &cotas);
 
     // Ordenación rápida con inicialización descendente
-    cotas = (Cotas){0.87, 1.136, 1.27, "n^0.87",
-        "n^1.136", "n^1.27"};
+    cotas = (Cotas){1.0, 1.15, 1.3, "n^1.0",
+        "n^1.15", "n^1.3"};
     imprimirEncabezado("rápida", "descendente", &cotas);
     imprimirTiempos(ord_rap, descendente, &cotas);
 
