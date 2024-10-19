@@ -1,10 +1,10 @@
-                                                                         #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <sys/time.h>
 #include <stdbool.h>
 #include <math.h>
- #include <string.h>
+
 
 // Definición de la estructura para las cotas
 typedef struct {
