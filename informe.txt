@@ -32,20 +32,20 @@ Modelo del Sistema: ASUSTeK COMPUTER INC. Vivobook_ASUSLaptop K6502HC_K6502HC
 Arquitectura: x86_64
 Sistema Operativo: Ubuntu 24.04.1 LTS
 Kernel: Linux 6.8.0-45-generic
-Capacidad Disco: 512 Gb
+Capacidad Disco: 512 GB
 
 UNIDADES DE TIEMPO UTILIZADAS
 -----------------------------
 
-En este informe todos los tiempos de ejecución de los algoritmos se midieron en microssegundos (μs).
+En este informe todos los tiempos de ejecución de los algoritmos se midieron en microsegundos (μs).
 Para garantizar la precisión de las mediciones, se estableció un umbral de confianza de
 500 microsegundos. Si el tiempo de ejecución es menor a este valor el algoritmo se repite
 k veces (k= 1000) y se obtiene el promedio dividiendo el tiempo total entre las ejecuciones.
 Los casos donde se aplicó este procedimiento están marcados con un asterisco en las tablas.
 
 
-   ***** Test de Ordenación por inserción*****
-   -------------------------------------------
+***** Test de Ordenación por inserción*****
+-------------------------------------------
 Ordenacion por inserción con inicialización aleatoria
 -15, -8, 5, -10, -5, -1, -5, -1, 4, -3, 2, 17, 17, 14, -7, -13, -4
 ordenado? 0
@@ -111,7 +111,7 @@ n^0.78 es la cota subestimada
 n^0.98 es la cota ajustada y la Cte = 0.0027
 n^1.18 es la cota sobreestimada
 
-rdenación por inserción con inicialización descendente
+Ordenación por inserción con inicialización descendente
 
             n            t(n)            t(n)/n^1.8              t(n)/n^2.0               t(n)/n^2.2
 *         500         229.1240            0.003176                0.0009165                0.0002644
@@ -201,19 +201,17 @@ o que ya están parcialmente ordenados, pero se degrada rápidamente en rendimie
 más grandes o que están totalmente desordenados.
 
 El algoritmo de ordenación rápida, por otro lado, no tiene una implementación tan sencilla, pero mostró una mayor
-eficiencia general y un rendimiento más estable en todas las configuraciones de datos, sobretodo en vectores de
-gran tamaño, destacándose especialmente en la ordenación aleatória.
+eficiencia general y un rendimiento más estable en todas las configuraciones de datos.
 
 Las cotas de ambos algoritmos muestran un comportamiento coherente y esperado en todas sus configuraciones.
 La cota subestimada crece de forma constante, la cota sobrestimada decrece de forma constante, y la cota ajustada
-se mantiene durante todas las mediciones.
-
+se mantiene alrededor de una constante durante todas las mediciones.
 
 Además como comprobación también podemos compararlas con las complejidades teóricas de los algoritmos.
 
 - Ordenación por Inserción con inicialización ascendente
 La cota empírica de O(n^0.98) está muy cerca de O(n), lo cual es consistente con el mejor caso teórico del algoritmo de inserción,
-que es O(n) cuando la lista ya está ordenada.
+que es exactamente O(n) y se da cuando la lista ya está ordenada.
 En este caso, el algoritmo simplemente recorre la lista sin realizar cambios.
 
 - Ordenación por Inserción con inicialización descendente
@@ -221,21 +219,16 @@ La cota empírica coincide exactamente con el peor caso teórico, O(n^2), que oc
 Cada nuevo elemento tiene que ser comparado y desplazado, lo que genera un comportamiento cuadrático en tiempo.
 
 - Ordenación por Inserción con inicialización aleatoria
-La cota empírica de O(n^1.99) es también consistente con el peor caso teórico. Esto indica que, aunque la lista está desordenada,
-el rendimiento se aproxima a la complejidad cuadrática. 
+La cota empírica de O(n^1.99) es también consistente con el peor caso teórico, O(n^2). Esto indica que, aunque la lista está desordenada, el rendimiento también se aproxima a la complejidad cuadrática. 
 
 - Ordenación rápida con inicialización ascendente
-La cota empírica de O(n^0.959*log(n)) es inferior a O(nlogn). Esto sugiere un rendimiento aceptable, aunque no óptimo, en listas ya ordenadas.
-Este comportamiento puede deberse a una elección ineficiente de pivotes, ya que las implementaciones básicas de Quicksort que seleccionan el primer
-o último elemento como pivote tienden a producir particiones desiguales en listas ordenadas.
+La cota empírica de O(n^0.959*log(n)) es inferior a O(n*log(n)). Esto sugiere un rendimiento óptimo debido a su cercanía a la cota teórica, Esto, a diferencia de cuando el pivote se elige de manera ineficiente que supondría un rendimiento de O(n^2),
+supone un comportamiento cercano a O(n*log(n)) debido a la obtención del pivote de forma aleatoria.
 
 - Ordenación rápida con inicialización descendente
-El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956*log(n)) sugiere un rendimiento peor que O(nlogn) pero mejor que O(n^2).
-Esto es típico cuando el pivote se elige de manera ineficiente en listas en orden inverso,
-lo que genera particiones desequilibradas que incrementan el tiempo de ejecución.
+El comportamiento es similar al caso ascendente. La cota empírica de O(n^0.956*log(n)) sugiere un rendimiento muy cercano a O(n*log(n)). Esto es debido en principal medida a la obtención del pivote de forma aleatoria.
 
 - Ordenación rápida con inicialización aleatoria
-La cota empírica de O(n^0.98*log(n)) está cerca de O(nlogn). Esto indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando
-mejor que en el peor caso, aunque no alcanza la eficiencia óptima teórica. 
-La elección aleatoria de pivotes tiende a ser más eficiente, generando particiones más equilibradas y, por tanto, 
-un rendimiento cercano al óptimo esperado de O(nlogn). 
+La cota empírica de O(n^0.98*log(n)) está cerca de O(nlogn). Esto indica que como en los demás casos la eficiencia del algoritmo es prácticamente la teórica.
+
+Estas mediciones del algoritmo rápido indican que la implementación del algoritmo rápido es efectiva para prácticamente todas las entradas de datos y está funcionando mejor que otras formas de implementar este algoritmo, gracias a la elección aleatoria de pivotes que tiende a ser más eficiente, generando particiones más equilibradas y, por tanto, un rendimiento cercano al óptimo esperado de O(n*log(n)). 
