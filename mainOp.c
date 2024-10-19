@@ -282,3 +282,69 @@ void imprimirTablas() {
     imprimirEncabezado("rápida", "aleatoria", &cotas);
     imprimirTiempos(ord_rap, aleatorio, &cotas);
 }
+
+
+
+
+
+let maximo = max_int;;
+let minimo = min_int;;
+(function maximo ->(function minimo -> minimo + maximo) min_int) max_int;;
+(function maximo ->(function minimo -> minimo + maximo + 1) min_int) max_int;;
+(function maximo -> maximo + 1) max_int;;
+(function maximo -> (function minimo -> minimo = maximo + 1) min_int) max_int;;
+(function minimo -> 2 * minimo) min_int;;
+(function maximo -> (function minimo -> minimo - 1 = maximo) min_int) max_int;;
+(function maximo -> 2 * maximo) max_int;;
+let maximo = 1. /. 0.;;		
+let minimo = -1.0 /. 0.;;													
+(function maximo -> 1. /. maximo) (1. /. 0.);;
+(function minimo -> 1. /. minimo) (-1.0 /. 0.);;
+(function maximo ->(function minimo -> 1. /. maximo = 1. /. minimo) (-1.0 /. 0.)) (1. /. 0.);;
+0. /. 0.;;	
+(function maximo -> maximo +. maximo) (1. /. 0.);;
+(function maximo -> maximo -. maximo) (1. /. 0.);;
+(function maximo ->  (function minimo -> -. maximo = minimo) (-1.0 /. 0.)
+) (1. /. 0.);;
+(function maximo ->(function minimo -> maximo +. minimo) (-1.0 /. 0.)) (1. /. 0.);;
+not (minimo < maximo);;		 
+(*(function maximo -> (function minimo ->(function not -> not (minimo < maximo))"no")(-1.0 /. 0.))(1. /. 0.);;*)
+let not = "no";;
+(function maximo ->(function minimo ->Stdlib.not (minimo < maximo)) (-1.0 /. 0.)) (1. /. 0.);;	
+(function not -> not ^ not) "no";;
+(function not -> not ^ not) "si";;
+not;;
+let x = 1;;
+(function x -> x + x * x) 2;;
+1 + (function x -> x + x * x) 2;;
+1 + (function x -> x * x) 2;;
+let y = (function y -> 1 + (function x -> x * x) 2) 1;;
+(function x -> (function x -> x * x) (3 * (x + 1))) 1;;
+(function x -> 2 * x);;		
+(function x -> 2 * x) (2 + 1);;		
+(function x -> 2 * x) 2 + 1;;		
+(function y -> 2 * y) ((function y -> 2 * y) 3);;	
+let doble  z = 2 * z;;	
+doble 2 + 1;;	
+doble (doble 3);;	
+(*doble doble 3;;*)		
+abs (1 - 2);;	
+abs 1;;		
+(*abs -1;;*)	
+let abs x = if x >= 0. then x else -. x;;		
+(*abs 1;;*)		
+abs 1.5;;	
+Stdlib.abs 1;;	
+let suma (x,y) = x + y;;	
+2 * suma (2,3) - suma (1,1);;	
+let suma' x y = x + y;;	
+suma' 3;;	
+(suma' 3) 2;;	
+suma' 3 2;;	
+suma (3,2) = suma' 3 2;;	
+(*suma 3;;*)	
+let suma3 y = suma' 3 y;;	
+suma3 10;;	
+suma3 2 + 1;;	
+suma3 (suma3 10);;	
+(*suma3 suma3 10;;*)
