@@ -112,7 +112,7 @@ n^0.78 es la cota subestimada
 n^0.98 es la cota ajustada y la Cte = 0.0027
 n^1.18 es la cota sobreestimada
 
-Ordenación por inserción con inicialización descendente
+rdenación por inserción con inicialización descendente
 
             n            t(n)         t(n)/n^1.8        t(n)/n^2.0          t(n)/n^2.2
 *         500         229.1240          0.003176         0.0009165           0.0002644
@@ -146,7 +146,7 @@ n^2.19 es la cota sobreestimada
 
 Ordenación rápida con inicialización ascendente
 
-            n            t(n)         t(n)/n^0.94       t(n)/n^0.956*log2(n)         t(n)/n^1.34
+            n            t(n)         t(n)/n^0.759      t(n)/n^0.959        t(n)/n^1.259
 *         500          16.7820          0.016739         0.0048300           0.0007486
 *        1000          35.7420          0.018953         0.0047607           0.0005993
 *        2000          76.0230          0.021648         0.0047339           0.0004841
@@ -155,13 +155,13 @@ Ordenación rápida con inicialización ascendente
         16000         736.0000          0.033954         0.0048985           0.0002684
         32000        1517.0000          0.038590         0.0048467           0.0002157
 
-n^0.94 es la cota subestimada
-n^1.14 es la cota ajustada y la Cte = 0.0048
-n^1.34 es la cota sobreestimada
+n^0.759 es la cota subestimada
+n^0.959 es la cota ajustada y la Cte = 0.0048
+n^1.259 es la cota sobreestimada
 
 Ordenación rápida con inicialización descendente
 
-            n            t(n)         t(n)/n^0.94       t(n)/n^0.956         t(n)/n^1.34
+            n            t(n)         t(n)/n^0.756      t(n)/n^0.956        t(n)/n^1.256
 *         500          17.1210          0.017399         0.0050203           0.0007781
 *        1000          36.4190          0.019716         0.0049524           0.0006235
 *        2000          77.3510          0.022534         0.0049277           0.0005039
@@ -170,13 +170,13 @@ Ordenación rápida con inicialización descendente
         16000         733.0000          0.034812         0.0050223           0.0002752
         32000        1479.0000          0.038813         0.0048747           0.0002170
 
-n^0.94 es la cota subestimada
-n^1.14 es la cota ajustada y la Cte = 0.0049
-n^1.34 es la cota sobreestimada
+n^0.756 es la cota subestimada
+n^0.959 es la cota ajustada y la Cte = 0.0049
+n^1.256 es la cota sobreestimada
 
 Ordenación rápida con inicialización aleatoria
 
-            n            t(n)         t(n)/n^0.9        t(n)/n^1.1          t(n)/n^1.3
+            n            t(n)          t(n)/n^0.78      t(n)/n^0.98         t(n)/n^1.18
 *         500          28.2070          0.024693         0.0071249           0.0020558
 *        1000          61.8280          0.028358         0.0071232           0.0017893
 *        2000         135.1670          0.032812         0.0071750           0.0015690
@@ -186,9 +186,9 @@ Ordenación rápida con inicialización aleatoria
         32000        2791.0000          0.057101         0.0071716           0.0009007
 
 
-n^0.9 es la cota subestimada
-n^1.1 es la cota ajustada y la Cte = 0.0071
-n^1.3 es la cota sobreestimada
+n^0.78 es la cota subestimada
+n^0.98 es la cota ajustada y la Cte = 0.0071
+n^1.18 es la cota sobreestimada
 
 
 ****CONCLUSIONES****
@@ -201,8 +201,8 @@ o que ya están parcialmente ordenados, pero se degrada rápidamente en rendimie
 más grandes o que están totalmente desordenados.
 
 El algoritmo de ordenación rápida, por otro lado, no tiene una implementación tan sencilla, pero mostró una mayor
- eficiencia general y un rendimiento más estable en todas las configuraciones de datos, sobretodo en vectores de
- gran tamaño, destacándose especialmente en la ordenación aleatória.
+eficiencia general y un rendimiento más estable en todas las configuraciones de datos, sobretodo en vectores de
+gran tamaño, destacándose especialmente en la ordenación aleatória.
 
 Las cotas de ambos algoritmos muestran un comportamiento coherente y esperado en todas sus configuraciones.
 La cota subestimada crece de forma constante, la cota sobrestimada decrece de forma constante, y la cota ajustada
@@ -212,35 +212,30 @@ se mantiene durante todas las mediciones.
 Además como comprobación también podemos compararlas con las complejidades teóricas de los algoritmos.
 
 - Ordenación por Inserción con inicialización ascendente
-La cota empírica de O(n^0.98) es muy cercana a O(n) (la cota esperada),
-dado que el algoritmo de inserción funciona mejor con datos ordenados.
+LLa cota empírica de O(n^0.98) está muy cerca de O(n), lo cual es consistente con el mejor caso teórico del algoritmo de inserción,
+que es O(n) cuando la lista ya está ordenada.
+En este caso, el algoritmo simplemente recorre la lista.
 
 - Ordenación por Inserción con inicialización descendente
-La cota empírica coincide exactamente con el peor caso teórico del algoritmo O(n^2),
-lo cual es esperado en este caso, dado que cada nuevo elemento debe ser comparado
-y movido a su posición correcta.
+La cota empírica coincide exactamente con el peor caso teórico, O(n^2), que ocurre cuando los datos están en orden inverso.
+Cada nuevo elemento tiene que ser comparado y desplazado, lo que genera un comportamiento cuadrático en tiempo.
 
 - Ordenación por Inserción con inicialización aleatoria
-La cota empírica de O(n1.99)O(n1.99) es también consistente con el peor caso teórico.
-Esto indica que, aunque la lista está desordenada, el rendimiento se aproxima a la complejidad cuadrática.
-Esto es típico en listas aleatorias, donde el comportamiento puede variar, pero en promedio se mantiene en el orden cuadrático.
+La cota empírica de O(n^1.99) es también consistente con el peor caso teórico. Esto indica que, aunque la lista está desordenada,
+el rendimiento se aproxima a la complejidad cuadrática. 
 
 - Ordenación rápida con inicialización ascendente
-La cota empírica de O(n1.14)O(n1.14) es un poco más alta que O(n)O(n), pero no llega a O(nlogn).
-Esto indica un buen rendimiento, aunque no óptimo, en listas ya ordenadas. Esto puede suceder si la implementación de Quicksort elige pivotes de forma menos eficiente en el caso de listas ordenadas.
+La cota empírica de O(n^1.14) es superior a O(n), pero no llega a O(nlog2n). Esto sugiere un rendimiento aceptable, aunque no óptimo, en listas ya ordenadas.
+Este comportamiento puede deberse a una elección ineficiente de pivotes, ya que las implementaciones básicas de Quicksort que seleccionan el primer
+o último elemento como pivote tienden a producir particiones desiguales en listas ordenadas.
 
 - Ordenación rápida con inicialización descendente
-Al igual que el caso anterior, la cota empírica de O(n1.14)O(n1.14) sugiere un rendimiento aceptable, pero no óptimo.
-Es interesante notar que, a pesar de la inicialización descendente, el rendimiento sigue siendo consistente,
-lo que podría indicar que la selección de pivotes está minimizando el impacto del orden inverso en el rendimiento.
+El comportamiento es similar al caso ascendente. La cota empírica de O(n^1.14) sugiere un rendimiento peor que O(nlog2n) pero mejor que O(n^2).
+Esto es típico cuando el pivote se elige de manera ineficiente en listas en orden inverso,
+lo que genera particiones desequilibradas que incrementan el tiempo de ejecución.
 
 - Ordenación rápida con inicialización aleatoria
-
-La cota empírica de O(n1.1)O(n1.1) es un poco más alta que O(n)O(n) y aún por debajo de O(nlogn).
-Esto es un buen resultado, ya que indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando mejor que en el peor caso, pero aún no alcanza la eficiencia óptima teórica.
-
-
-
-
-
-
+La cota empírica de O(n^1.1) está cerca de O(nlog2n). Esto indica que la implementación del algoritmo es efectiva para datos aleatorios y está funcionando
+mejor que en el peor caso, aunque no alcanza la eficiencia óptima teórica. 
+La elección aleatoria de pivotes tiende a ser más eficiente, generando particiones más equilibradas y, por tanto, 
+un rendimiento cercano al óptimo esperado de O(n log n). 
