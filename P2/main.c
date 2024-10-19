@@ -36,8 +36,8 @@ void imprimir_array(int v[], int n);
 //Realiza las pruebas de los algoritmos Fibonacci y muestra las tablas de tiempos
 int main(void) {
     inicializar_semilla();
-    //test();
-    imprimirTablas();
+    test();
+    //imprimirTablas();
     return 0;
 }
 
@@ -55,25 +55,39 @@ void ord_ins(int v[], int n) {
     }
 }
 
-void ord_rap_aux (int v [], int iz, int dr) {
-    int i, j, x, y;
-    i = iz;
-    j = dr;
-    x = v[(iz+dr)/2];
-    do {
-        while (v[i] < x && i < dr) i++;
-        while (x < v[j] && j > iz) j--;
-        if (i <= j) {
-            y = v[i];
-            v[i] = v[j];
-            v[j] = y;
-            i++;
-            j--;
-        }
-    } while (i <= j);
-    if (iz < j) ord_rap_aux(v, iz, j);
-    if (i < dr) ord_rap_aux(v, i, dr);
+
+void intercambiar(int *a, int *b) {
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
 }
+
+void ord_rap_aux (int v [], int iz, int dr) {
+    int i,j,x, pivote;
+    if (iz < dr) {
+        x = (rand() % (dr - iz + 1)) + iz;;
+        pivote = v[x];
+        intercambiar(&v[iz], &v[x]);
+        i = iz + 1;
+        j = dr;
+
+        while (i <= j) {
+            while (i <= dr && v[i] < pivote) i++;
+            while (v[j] > pivote) j--;
+
+            if (i <= j) {
+                intercambiar(&v[i], &v[j]);
+                i++;
+                j--;
+            }
+        }
+        intercambiar(&v[iz], &v[j]);
+        ord_rap_aux (v, iz, j-1);
+        ord_rap_aux (v, j+1, dr);
+    }
+}
+
 void ord_rap (int v [], int n) {
     ord_rap_aux(v, 0, n-1);
 }
