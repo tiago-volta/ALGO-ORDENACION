@@ -262,8 +262,8 @@ void imprimirTablas() {
     imprimirTiempos(ord_rap, descendente, &cotas);
 
     // Ordenación rápida con inicialización aleatoria
-    cotas = (Cotas){0.84, 1.04, 1.24, "n^0.84",
-        "n^1.04", "n^1.24"};
+    cotas = (Cotas){1.0, 1.1, 1.3, "n^1.0",
+        "n^1.1", "n^1.3"};
     imprimirEncabezado("rápida", "aleatoria", &cotas);
     imprimirTiempos(ord_rap, aleatorio, &cotas);
 }
