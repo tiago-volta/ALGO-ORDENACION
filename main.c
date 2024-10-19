@@ -125,7 +125,8 @@ int esta_ordenado(int v[], int n) {
 }
 
 void imprimir_array(int v[], int n) {
-    for (int i = 0; i < n; i++) {
+    int i;
+    for (i = 0; i < n; i++) {
         if (i == n - 1) {
             printf("%d", v[i]);  // Último elemento sin coma
         } else {
@@ -333,4 +334,4 @@ void imprimirTablas() {
     imprimirEncabezado("rápida", "aleatoria", &cotas,2);
     imprimirTiempos(ord_rap, aleatorio, &cotas,2);
 }
-    
+
